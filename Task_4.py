@@ -1,15 +1,23 @@
 '''Решить задачу поиска наименьших квадратов для линейного матричного уравнения.'''
 
 import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import plotly.io as pio
 
-A = [[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 0, 0]]
-B = [1, 1, 1, 1, 1]
-W = [1, 2, 3, 4, 5]
 
-W = np.sqrt(np.diag(W))
+x = np.arange(10)
+y = 2*x + 4 + 2*np.random.randn(10)
+print(x)
+print(y)
 
-Aw = np.dot(W, A)
-Bw = np.dot(B, W)
+plt.scatter(x, y)
+A = np.vstack([x, np.ones(len(x))]).T
+m, c = np.linalg.lstsq(A, y, rcond=None)[0]
+pio.renderers.default = 'png'
+plt.plot(x, m*x + c, 'r')
+plt.show()
 
-X = np.linalg.lstsq(Aw, Bw, rcond=-1)
-print(X[0])
+
+
+
